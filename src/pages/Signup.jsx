@@ -2,7 +2,11 @@ import styled from 'styled-components'
 import Header from '../components/Header'
 import BackgroundImage from '../components/BackgroundImage'
 import React, { useState } from 'react';
-import {auth} from '../utils/Firebase-config';
+import { auth } from '../utils/Firebase-config';
+import { useHistory } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+
 
 const Container = styled.div`
   position: relative;
@@ -90,23 +94,24 @@ export default function Signup() {
   //   }
   //   setErrorMsg("");
   // };
-  
+
   const [formValues, setFormValues] = useState(
     {
       email: "",
       password: "",
     }
   );
-  
-  const handleSignIn = async () => {
+
+  const handleSignIn = async (event) => {
+    event.preventDefault();
     try {
       const { email, password } = formValues;
-      const ans = await auth.createUserWithEmailAndPassword(email, password);
+      const ans = await createUserWithEmailAndPassword(auth, email, password);
       console.log(ans);
-
-    } catch(error){
+    } catch (error) {
       console.log(error);
-    }                                                           
+      // setErrorMsg(error.message); // Uncomment this if you have an `errorMsg` state
+    }
   }
   return (
     <Container showpassword={showPassword} >
@@ -132,7 +137,7 @@ export default function Signup() {
               />
               {
                 showPassword && <input type="password"
-                required={true}
+                  required={true}
                   name="password" // Add name attribute
                   placeholder="Password"
                   value={formValues.password}
@@ -142,7 +147,7 @@ export default function Signup() {
                   })} />
               }
               {
-                !showPassword && <button onClick={() => setShowPassword(true)}>Get Started</button>
+                !showPassword && <button onClick={(event) => { event.preventDefault(); setShowPassword(true); }}>Get Started</button>
               }
               {
                 showPassword && <button onClick={handleSignIn}>Start Membership</button>
