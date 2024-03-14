@@ -62,11 +62,6 @@ export default function Signup() {
       <BackgroundImage />
       <div className="content">
         <div className="body">
-          <div className="text">
-            <h1>Unlimited movies, TV shows and more</h1>
-            <h4>Watch anywhere. Cancel anytime.</h4>
-            <h6>Ready to watch? Enter your email to create or restart your membership.</h6>
-          </div>
           <div className="form">
             <form>
               <input type="email" required={true}

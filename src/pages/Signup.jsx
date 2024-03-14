@@ -33,8 +33,7 @@ export default function Signup() {
         console.log(" fairy error ", errorMessage);
         // ..
         if (errorCode === 'auth/email-already-in-use') {
-          alert('That email address is already in use!');
-          return navigate("/login");
+          return navigate("/");
         } else if (errorCode === 'auth/invalid-email') {
           alert('That email address is invalid!');
         } else if (errorCode === 'auth/weak-password') {
